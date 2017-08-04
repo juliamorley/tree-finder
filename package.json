@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "tree-finder",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A NYC tree finder",
   "engines": {
     "node": ">= 7.0.0"
   },
