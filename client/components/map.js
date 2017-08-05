@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { withGoogleMap, GoogleMap, InfoWindow, Marker, DirectionRenderer } from "react-google-maps";
 import _ from 'lodash'
+import { connect } from 'react-redux'
 
-
+//COMPONENT
 const InitialMap = withGoogleMap(props => {
-    console.log('marker', Marker)
 
     return (
         <GoogleMap
@@ -13,13 +13,18 @@ const InitialMap = withGoogleMap(props => {
             defaultCenter={{ lat: 40.7829, lng: -73.9654 }}
             onClick={props.onMapClick}
         >
-            <Marker>
-            </Marker>
+            {props.markers.map((marker, index) => (
+            <Marker
+                key = {index}
+                position = {marker.position}
+                />
+            ))}
         </GoogleMap>
     )
 });
 
-export default class myMap extends Component {
+
+const FullMap = class myMap extends Component {
 
     render() {
         return (
@@ -33,17 +38,21 @@ export default class myMap extends Component {
                 onMapLoad={_.noop}
                 onMapClick={_.noop}
                 onMarkerRightClick={_.noop}
+                markers={[{position:{lat: 40.7829, lng: -73.9654 }}]}
             />
         );
     }
 }
 
 
-            // {props.markers.map((marker, index) => (
-            //     <Marker
-            //         {...marker}
-            //         onRightClick={() => props.onMarkerRightClick(index)}
-            //     />
-            // ))}
+//CONTAINER
+const mapState = (state) => {
+    return {
+        // this is where we will take the selected tree objects and save them so we can get their lat & long
+    }
+}
 
-            // markers={markers}
+export default connect(mapState)(FullMap)
+
+
+

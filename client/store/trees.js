@@ -20,7 +20,6 @@ export const fetchTrees = () =>
       //limit: 10
     })
       .then(res => {
-        console.log('data', res)
         dispatch(gotTrees(res.data))
       }
       )
