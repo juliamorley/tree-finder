@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 
 //COMPONENT
 const InitialMap = withGoogleMap(props => {
+    console.log("props", props)
+    console.log("lat", props.trees[0].klatitude)
 
     return (
         <GoogleMap
@@ -13,10 +15,10 @@ const InitialMap = withGoogleMap(props => {
             defaultCenter={{ lat: 40.7829, lng: -73.9654 }}
             onClick={props.onMapClick}
         >
-            {props.markers.map((marker, index) => (
+            {props.trees.map((tree, index) => (
             <Marker
                 key = {index}
-                position = {marker.position}
+                position = {{lat: tree.latitude, lng: tree.longitude }}
                 />
             ))}
         </GoogleMap>
@@ -25,8 +27,9 @@ const InitialMap = withGoogleMap(props => {
 
 
 const FullMap = class myMap extends Component {
-
     render() {
+        console.log("props2", this.props)
+
         return (
             <InitialMap
                 containerElement={
@@ -39,6 +42,7 @@ const FullMap = class myMap extends Component {
                 onMapClick={_.noop}
                 onMarkerRightClick={_.noop}
                 markers={[{position:{lat: 40.7829, lng: -73.9654 }}]}
+                trees={this.props.trees}
             />
         );
     }
@@ -46,9 +50,11 @@ const FullMap = class myMap extends Component {
 
 
 //CONTAINER
+
 const mapState = (state) => {
     return {
         // this is where we will take the selected tree objects and save them so we can get their lat & long
+        trees: state.trees
     }
 }
 
