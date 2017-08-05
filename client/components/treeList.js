@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {addTree, removeTree} from '../store'
 
 //COMPONENT
 export const TreeList = (props) => {
@@ -7,13 +8,11 @@ export const TreeList = (props) => {
 
     return (
         <div>
-            {
-                uniqueTreeNames.map((name, i) => (
-                    <div className="col-sm-3" key={i}>
-                        <span>{name}</span>
-                    </div>
-                ))
-            }
+            { uniqueTreeNames.map((name, i) => (
+                    <button type = "onClick" onClick={props.handleClick}  key={i} value={name}>
+                        {name}
+                    </button>
+                ))}
         </div>
     )
 }
@@ -25,5 +24,12 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(TreeList)
+const mapDispatch = function(dispatch, ownProps){
+   return {
+       handleClick(event){
+        console.log(event.target.value)
+       }
+   }
+}
 
+export default connect(mapState, mapDispatch)(TreeList)
