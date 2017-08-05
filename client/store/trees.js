@@ -1,34 +1,31 @@
 import axios from 'axios'
-import history from '../history'
 
-/**
- * ACTION TYPES
- */
+//ACTION TYPES
 const GOT_TREES = 'GOT_TREES'
 
-/**
- * INITIAL STATE
- */
+//INITIAL STATE
 const defaultTrees = []
 
-/**
- * ACTION CREATORS
- */
-const gotTrees = trees => ({type: GOT_TREES, trees})
+//ACTION CREATORS
+const gotTrees = trees => ({ type: GOT_TREES, trees })
 
-/**
- * THUNK CREATORS
- */
+//THUNK CREATORS
+
 export const fetchTrees = () =>
   dispatch =>
-    axios.get('/https://data.cityofnewyork.us/resource/5rq2-4hqu.json')
-      .then(res =>
-        dispatch(gotTrees(res.data)))
+    axios({
+      method: 'get',
+      url: "https://data.cityofnewyork.us/resource/5rq2-4hqu.json",
+      dataType: "json"
+    })
+      .then(res => {
+        console.log('data', res)
+        dispatch(gotTrees(res.data))
+      }
+      )
       .catch(err => console.log(err))
 
-/**
- * REDUCER
- */
+// REDUCER
 export default function (state = defaultTrees, action) {
   switch (action.type) {
     case GOT_TREES:
