@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 //COMPONENT
 const InitialMap = withGoogleMap(props => {
     console.log("props", props)
-    console.log("lat", props.trees[0].klatitude)
 
     return (
         <GoogleMap
@@ -18,7 +17,7 @@ const InitialMap = withGoogleMap(props => {
             {props.trees.map((tree, index) => (
             <Marker
                 key = {index}
-                position = {{lat: tree.latitude, lng: tree.longitude }}
+                position = {{lat: parseFloat(tree.latitude), lng: parseFloat(tree.longitude) }}
                 />
             ))}
         </GoogleMap>
