@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 
 //COMPONENT
 const InitialMap = withGoogleMap(props => {
-    console.log("props", props)
 
     return (
         <GoogleMap
@@ -18,6 +17,7 @@ const InitialMap = withGoogleMap(props => {
             <Marker
                 key = {index}
                 position = {{lat: parseFloat(tree.latitude), lng: parseFloat(tree.longitude) }}
+                icon = '/tree.png'
                 />
             ))}
         </GoogleMap>
@@ -27,7 +27,6 @@ const InitialMap = withGoogleMap(props => {
 
 const FullMap = class myMap extends Component {
     render() {
-        console.log("props2", this.props)
 
         return (
             <InitialMap

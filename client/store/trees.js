@@ -15,7 +15,7 @@ export const fetchTrees = () =>
   dispatch =>
     axios({
       method: 'get',
-      url: "https://data.cityofnewyork.us/resource/5rq2-4hqu.json",
+      url: "https://data.cityofnewyork.us/resource/5rq2-4hqu.json?$limit=10000",
       dataType: "json",
       limit: 10
     })
