@@ -7,13 +7,11 @@ export const TreeList = (props) => {
 
     return (
         <div>
-            {
-                uniqueTreeNames.map((name, i) => (
-                    <div className="col-sm-3" key={i}>
+            { uniqueTreeNames.map((name, i) => (
+                    <button type = "onClick" color="green" key={i}>
                         <span>{name}</span>
-                    </div>
-                ))
-            }
+                    </button>
+                ))}
         </div>
     )
 }
@@ -27,3 +25,10 @@ const mapState = (state) => {
 
 export default connect(mapState)(TreeList)
 
+/*{
+                uniqueTreeNames.map((name, i) => (
+                    <div className="col-sm-3" key={i}>
+                        <span>{name}</span>
+                    </div>
+                ))
+            }*/
