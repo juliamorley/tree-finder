@@ -16,9 +16,9 @@ const removeTree = tree => ({ type: REMOVE_TREE, tree});
 export default function (state = selectedTrees, action) {
   switch (action.type) {
     case ADD_TREE:
-      return action.tree
-    case: REMOVE_TREE
-        return REMOVE_TREE
+      return [...state, action.tree];
+    case REMOVE_TREE:
+      return state.filter(tree => tree !== action.tree);
     default:
       return state
   }
