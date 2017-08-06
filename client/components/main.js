@@ -17,7 +17,7 @@ const Main = (props) => {
     <div>
       <nav id='nav' className="navbar navbar-inverse bg-primary">
         <ul className="nav navbar-nav navbar-left">
-          <li><Link className="nav-item color-me" to="/">NYC Tree Finder</Link></li>
+          <h1>NYC Tree Finder</h1>
         </ul>
       </nav>
       {children}

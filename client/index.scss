@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'system-ui', sans-serif;
 
   a {
     text-decoration: none;
@@ -9,13 +9,55 @@ body {
     display: block;
   }
 
-  nav a {
+  nav h1 {
     display: inline-block;
     margin: 1em;
+    font: #34495e
+  }
+
+  nav {
+    background-color: #48a271;
+    color: white
   }
 
   form div {
     margin: 1em;
     display: inline-block;
   }
+}
+
+.flexbox-container {
+	display: -ms-flex;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.column {
+    width: 50%;
+}
+
+.active {
+    background-color: #29745a;
+    color: white
+
+}
+
+.normal {
+    background-color: #F5F5F5;
+    font: #34495e
+}
+
+button {
+    border: none;
+    padding: 8px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    border-radius: 2px;
+    margin: 1px
+}
+
+button:hover {
+    background-color: #eaeaea;
 }
