@@ -8,8 +8,8 @@ const REMOVE_TREE = 'REMOVE_TREE'
 const selectedTrees = []
 
 //ACTION CREATORS
-const addTree = tree => ({ type: ADD_TREE, tree });
-const removeTree = tree => ({ type: REMOVE_TREE, tree});
+export const addTree = tree => ({ type: ADD_TREE, tree });
+export const removeTree = tree => ({ type: REMOVE_TREE, tree});
 
 
 // REDUCER

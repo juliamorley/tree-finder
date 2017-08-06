@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {addTree, removeTree} from '../store'
+import { addTree, removeTree, selectTrue, selectFalse } from '../store'
 
 //COMPONENT
 export const TreeList = (props) => {
@@ -8,11 +8,13 @@ export const TreeList = (props) => {
 
     return (
         <div>
-            { uniqueTreeNames.map((name, i) => (
-                    <button type = "onClick" onClick={props.handleClick}  key={i} value={name}>
-                        {name}
-                    </button>
-                ))}
+            <button type="onClick" onClick={props.handleAll} value={name} className="active">
+                Select All </button>
+            {uniqueTreeNames.map((name, i) => (
+                <button type="onClick" onClick={props.handleClick} key={i} value={name} className="normal">
+                    {name}
+                </button>
+            ))}
         </div>
     )
 }
@@ -24,12 +26,29 @@ const mapState = (state) => {
     }
 }
 
-const mapDispatch = function(dispatch, ownProps){
-   return {
-       handleClick(event){
-        console.log(event.target.value)
-       }
-   }
+const mapDispatch = function (dispatch, ownProps) {
+    return {
+        handleClick(event) {
+            var className = event.target.className;
+            if (className == "normal") {
+                event.target.className = "active";
+                dispatch(addTree(event.target.value));
+            } else {
+                event.target.className = "normal";
+                dispatch(removeTree(event.target.value));
+            }
+        },
+        handleAll(event) {
+            var className = event.target.className;
+            if (className == "active") {
+                event.target.className = "normal";
+                dispatch(selectFalse(event.target.value));
+            } else {
+                event.target.className = "active";
+                dispatch(selectTrue(event.target.value));
+            }
+        }
+    }
 }
 
 export default connect(mapState, mapDispatch)(TreeList)
