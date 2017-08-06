@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 //ACTION TYPES
 const ADD_TREE = 'ADD_TREE'
 const REMOVE_TREE = 'REMOVE_TREE'
