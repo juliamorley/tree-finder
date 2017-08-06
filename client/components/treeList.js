@@ -7,7 +7,7 @@ export const TreeList = (props) => {
     const { uniqueTreeNames } = props
 
     return (
-        <div>
+        <div className = 'column'>
             <button type="onClick" onClick={props.handleAll} value={name} className="active">
                 Select All </button>
             {uniqueTreeNames.map((name, i) => (
@@ -22,8 +22,9 @@ export const TreeList = (props) => {
 //CONTAINER
 const mapState = (state) => {
     return {
-        uniqueTreeNames: state.trees.map(tree => tree.spc_common).filter((value, index, self) => (self.indexOf(value) === index))
-    }
+        uniqueTreeNames: state.trees.map(tree => tree.spc_common).filter((value, index, self) => {
+            return (value && self.indexOf(value) === index)}
+        ).sort()}
 }
 
 const mapDispatch = function (dispatch, ownProps) {

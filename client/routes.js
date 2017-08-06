@@ -22,8 +22,10 @@ class Routes extends Component {
       <Router history={history}>
         <div>
           <Main />
+          <div className = "flexbox-container" >
           <TreeList />
           <MapContainer/>
+          </div>
         </div>
       </Router>
     )
