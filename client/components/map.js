@@ -1,7 +1,23 @@
 import React, { Component } from "react";
-import { withGoogleMap, GoogleMap, InfoWindow, Marker, DirectionRenderer} from "react-google-maps";
+import { withGoogleMap, GoogleMap, InfoWindow, Marker, DirectionRenderer, places} from "react-google-maps";
+import SearchBox from "../../node_modules/react-google-maps/lib/places/SearchBox.js"
 import { connect } from 'react-redux'
 import { updateTreeInfo, addTreeInfo, removeTreeInfo } from '../store'
+
+const INPUT_STYLE = {
+  boxSizing: `border-box`,
+  MozBoxSizing: `border-box`,
+  border: `1px solid transparent`,
+  width: `240px`,
+  height: `32px`,
+  marginTop: `27px`,
+  padding: `0 12px`,
+  borderRadius: `1px`,
+  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+  fontSize: `14px`,
+  outline: `none`,
+  textOverflow: `ellipses`,
+};
 
 const InitialMap = withGoogleMap(props => {
     let treeMarkers;
@@ -14,11 +30,18 @@ const InitialMap = withGoogleMap(props => {
     }
     return (
         <GoogleMap
-            ref={props.onMapLoad}
-            defaultZoom={15}
-            defaultCenter={{ lat: 40.7292, lng: -73.9845 }}
+            ref={props.onMapMounted}
+            zoom= {props.zoom}
+            center= {props.center}
 
         >
+            <SearchBox
+                ref={props.onSearchBoxMounted}
+                controlPosition={google.maps.ControlPosition.TOP_LEFT}
+                inputPlaceholder="Zoom to Location"
+                inputStyle={INPUT_STYLE}
+                onPlacesChanged={props.onPlacesChanged}
+            />
             {treeMarkers.map((tree, index) => (
             <Marker
                 key = {index}
@@ -44,6 +67,56 @@ const InitialMap = withGoogleMap(props => {
 
 const FullMap = class myMap extends Component {
 
+    constructor (){
+        super()
+
+        this.state= {
+            center: { lat: 40.7292, lng: -73.9845 },
+            zoom: 12,
+            searchPlace: {},
+            bounds: null,
+        }
+
+
+        this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
+        this.handleMapMounted = this.handleMapMounted.bind(this);
+        this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
+        this.handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
+    }
+
+    handleMapMounted(map) {
+        this._map = map;
+    }
+
+    handleBoundsChanged() {
+        this.setState({
+        bounds: this._map.getBounds(),
+        center: this._map.getCenter(),
+        });
+    }
+
+    handleSearchBoxMounted(searchBox) {
+        this.searchBox = searchBox;
+    }
+
+    handlePlacesChanged(event) {
+
+        const places = this.searchBox.getPlaces();
+
+        // Add a marker for each place returned from search bar
+        const markers = places.map(place => ({
+        position: place.geometry.location,
+        }));
+
+        // Set markers; set map center to first search result
+        const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
+
+        this.setState({
+        center: mapCenter,
+        markers,
+        zoom: 17
+        });
+    }
 
     render() {
 
@@ -60,6 +133,14 @@ const FullMap = class myMap extends Component {
                 selectedTrees={this.props.selectedTrees}
                 infoBoxTrees={this.props.infoBoxTrees}
                 handleMarkerClick={this.props.handleMarkerClick}
+                center={this.state.center}
+                onMapMounted={this.handleMapMounted}
+                onBoundsChanged={this.handleBoundsChanged}
+                onSearchBoxMounted={this.handleSearchBoxMounted}
+                bounds={this.state.bounds}
+                onPlacesChanged={this.handlePlacesChanged}
+                markers={this.state.markers}
+                zoom = {this.state.zoom}
             />
         );
     }
