@@ -17,6 +17,7 @@ const INPUT_STYLE = {
   fontSize: `14px`,
   outline: `none`,
   textOverflow: `ellipses`,
+  font: 'Nunito'
 };
 
 const InitialMap = withGoogleMap(props => {
@@ -123,10 +124,10 @@ const FullMap = class myMap extends Component {
         return (
             <InitialMap
                 containerElement={
-                    <div style={{ height: `100px`, width: '100px' }} />
+                    <div style={{ height: `100%`, width: '100%' }} />
                 }
                 mapElement={
-                    <div style={{ height: `400px`, width: '800px' }} />
+                    <div id="map" style={{ height: `100vh`, width: '70%' }} />
                 }
                 trees={this.props.trees}
                 selectAll={this.props.selectAll}

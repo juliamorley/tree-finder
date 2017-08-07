@@ -15,7 +15,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <nav id='nav' className="navbar navbar-inverse bg-primary">
+      <nav id='nav' className="navbar navbar-inverse bg-primary" style={{ width: '100%' }}>
         <ul className="nav navbar-nav navbar-left">
           <h1>NYC Tree Finder</h1>
         </ul>
