@@ -8,8 +8,16 @@ export const TreeList = (props) => {
 
     return (
         <div className = 'column'>
-            <button type="onClick" onClick={props.handleAll} value={name} className="active">
-                Select All </button>
+         {!uniqueTreeNames.length ?
+                <div>
+                    <img className='tree-img' src="/tree1.png"></img>
+                    <img className='tree-img' src="/tree2.png"></img>
+                    <img className='tree-img' src="/tree3.png"></img>
+                    <h1>Please be patient while we fetch 600,000 trees</h1>
+                </div> :
+                <button type="onClick" onClick={props.handleAll} value={name} className="active">
+                    Select All
+                </button>}
             {uniqueTreeNames.map((name, i) => (
                 <button type="onClick" onClick={props.handleClick} key={i} value={name} className="normal">
                     {name}

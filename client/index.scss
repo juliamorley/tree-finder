@@ -103,10 +103,27 @@ button {
     // transition: all 1s;
 }
 
-
-
-
-
 button:hover {
-    background-color: #D2DFEC;
+
+    background-color: #eaeaea;
+}
+
+
+.tree-img {
+  animation:
+    bounce 5s linear infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(150px, 0);
+  }
+
+  99% {
+    transform: translate(-150px, 0);
+  }
 }
